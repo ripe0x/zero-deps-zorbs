@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>zero-deps-zorbs — example grid</title>
+  <style>
+    body { font-family: ui-sans-serif, system-ui, sans-serif; margin: 2rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 1rem; }
+    .cell { text-align: center; }
+    .cell img { width: 96px; height: 96px; border-radius: 50%; display: block; margin: 0 auto 0.5rem; }
+    .cell code { font-size: 10px; word-break: break-all; color: #555; }
+  </style>
+</head>
+<body>
+  <h1>zero-deps-zorbs</h1>
+  <p>Live render via <code>../dist/index.js</code>. Open after <code>npm run build</code>.</p>
+  <div class="grid" id="grid"></div>
+  <script type="module">
+    import { zorbDataURI } from '../dist/index.js';
+    const addrs = [
+      '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
+      '0x000000000000000000000000000000000000dead',
+      '0x0000000000000000000000000000000000000000',
+      '0xffffffffffffffffffffffffffffffffffffffff',
+      '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
+      '0xaa55aa55aa55aa55aa55aa55aa55aa55aa55aa55',
+      ...Array.from({ length: 30 }, () => {
+        let h = '0x';
+        for (let i = 0; i < 20; i++) h += Math.floor(Math.random() * 256).toString(16).padStart(2, '0');
+        return h;
+      }),
+    ];
+    const grid = document.getElementById('grid');
+    for (const a of addrs) {
+      const cell = document.createElement('div');
+      cell.className = 'cell';
+      cell.innerHTML = `<img src="${zorbDataURI(a)}" alt="" /><code>${a}</code>`;
+      grid.appendChild(cell);
+    }
+  </script>
+</body>
+</html>

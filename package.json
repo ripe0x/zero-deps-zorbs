@@ -1,0 +1,47 @@
+{
+  "name": "zero-deps-zorbs",
+  "version": "0.1.0",
+  "license": "MIT",
+  "description": "Zero-dependency Zorb PFP generator. Byte-for-byte identical output to @zoralabs/zorb.",
+  "keywords": ["zorb", "pfp", "avatar", "ethereum", "svg", "fallback"],
+  "author": "ripe <unripeengine@gmail.com>",
+  "homepage": "https://github.com/ripe0x/zero-deps-zorbs#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ripe0x/zero-deps-zorbs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ripe0x/zero-deps-zorbs/issues"
+  },
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": ["dist", "README.md", "LICENSE"],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "compare": "tsx scripts/compare.ts",
+    "build-visual": "tsx scripts/build-visual.ts",
+    "audit-dist": "tsx scripts/audit-dist.ts",
+    "verify": "npm run typecheck && npm run test && npm run build && npm run audit-dist && npm run compare && npm run build-visual"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@zoralabs/zorb": "0.1.0",
+    "tsup": "^8.3.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0"
+  }
+}

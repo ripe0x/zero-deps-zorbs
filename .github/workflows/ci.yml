@@ -14,7 +14,11 @@ jobs:
         with:
           node-version: 20
           cache: npm
-      - run: npm ci
+      # Use `npm install` rather than `npm ci`: rollup's platform-specific
+      # native binaries are tracked as optional deps that npm's ci command
+      # sometimes fails to install on a different platform than the lockfile
+      # was generated on (https://github.com/npm/cli/issues/4828).
+      - run: npm install --no-audit --prefer-offline
       - run: npm run typecheck
       - run: npm run test
       - run: npm run build
